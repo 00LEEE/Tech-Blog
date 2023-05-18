@@ -1,0 +1,19 @@
+<main>
+  <h1>DASHBOARD</h1>
+
+  <section>
+    {{> newpost}}
+  </section>
+
+  <section>
+    {{#each posts}}
+      {{> post}}
+    {{/each}}
+  </section>
+</main>
+
+<script> 
+  document.querySelectorAll('.toggleButton').forEach(button => {
+    if (localStorage.getItem(button.dataset.postId) === 'expanded') { toggleContent(button); }
+  });
+</script>
