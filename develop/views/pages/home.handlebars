@@ -1,0 +1,15 @@
+<main>
+  <h1>TECH BLOG</h1>
+
+  <section>
+    {{#each posts}}
+      {{> post}}
+    {{/each}}
+  </section>
+</main>
+
+<script> 
+  document.querySelectorAll('.toggleButton').forEach(button => {
+    if (localStorage.getItem(button.dataset.postId) === 'expanded') { toggleContent(button); }
+  });
+</script>
