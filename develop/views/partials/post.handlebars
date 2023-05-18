@@ -1,0 +1,44 @@
+<div class="posts">
+  <div class="postInfo">
+    <h2>{{title}} <span class="authored"> by {{author}} on {{date}}</span></h2>
+    {{#if canDelete}}
+      <button type="button" class="deleteBtn" data-post-id="{{id}}">X</button>
+    {{/if}}
+    <button class="toggleButton" type="button" data-post-id="{{id}}">V</button>
+  </div>
+  <div class="postContent hidden">
+    <p>{{content}}</p>
+    {{#if comments}}
+      {{#each comments}}
+        {{> comment}}
+      {{/each}}
+    {{/if}}
+    {{> newcomment}}
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.toggleButton').forEach(button => {
+    button.addEventListener('click', () => {
+      const id = button.dataset.postId;
+      const contentDiv = button.closest('.posts').querySelector('.postContent');
+      contentDiv.classList.toggle('hidden');
+      localStorage.setItem(id, contentDiv.classList.contains('hidden') ? 'collapsed' : 'expanded');
+    });
+
+    if (localStorage.getItem(button.dataset.postId) === 'expanded') {
+      button.click();
+    }
+  });
+
+  document.querySelectorAll('.deleteBtn').forEach(button => {
+    button.addEventListener('click', async () => {
+      const response = await fetch(`/posts/${button.dataset.postId}`, { method: 'DELETE' });
+      if (response.ok) {
+        button.closest('.posts').remove();
+      } else {
+        console.error('Failed to delete post');
+      }
+    });
+  });
+</script>
