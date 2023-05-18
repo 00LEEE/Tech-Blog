@@ -1,0 +1,31 @@
+<form id="newPost" action="/posts" method="post">
+  <div class="posts">
+    <div class="postInfo">
+      <h2>New Post</h2>
+      <input type="text" id="title" name="title" required><br>
+    </div>
+    <textarea id="content" name="content" required></textarea><br>
+    <button type="submit"> Post </button>
+  </div>
+</form>
+
+<script>
+  document.querySelector('#newPost').addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const data = Object.fromEntries(new FormData(event.target));
+    const options = {
+      method: event.target.method,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    };
+    const response = await fetch(event.target.action, options);
+    
+    if (!response.ok) {
+      alert('Something went wrong');
+      return;
+    }
+
+    window.location.reload();
+  });
+</script>
