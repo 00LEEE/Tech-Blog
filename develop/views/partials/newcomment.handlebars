@@ -1,0 +1,23 @@
+<form id="newComment{{id}}" action="/comments" method="post">
+    <input type="hidden" name="id" value="{{id}}">
+    <textarea id="comment" name="comment" required></textarea>
+    <button type="submit">Comment</button>
+</form>
+
+<script>
+  document.querySelector(`#newComment{{id}}`).addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = Object.fromEntries(new FormData(e.target));
+    const response = await fetch(e.target.action, {
+        method: e.target.method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+    });
+
+    if (response.ok) {
+        window.location.reload();
+    } else {
+        alert('Error: Could not post comment');
+    }
+  });
+</script>
