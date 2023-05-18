@@ -1,0 +1,16 @@
+<article class="comment"> 
+    <header class="postInfo">
+        <h2> {{author}} <time datetime="{{date}}">on {{date}}</time></h2>
+            {{#if canDelete}}
+                <button type="button" onclick="deleteComment({{id}})">X</button>
+            {{/if}}
+    </header>
+    <p>{{content}}</p>
+</article>
+
+<script> 
+    async function deleteComment(id) {
+        await fetch('/comments/' + id, { method: 'DELETE' });
+        window.location.reload();
+    }       
+</script>
