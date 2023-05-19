@@ -4,6 +4,7 @@ const routes = require('./controllers');
 const session = require('express-session');
 const handlebars = require('express-handlebars').create();
 const sequelize = require('./config/connection');
+require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -31,3 +32,4 @@ sequelize.sync({ force: false }).then(() => {
     console.log(`Server live ${port}.`);
   });
 });
+
