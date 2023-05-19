@@ -39,7 +39,7 @@ router.post('/posts', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   const user = await User.findOne({ where: { username: req.body.username } });
-  if (!user || !(await user.comparePassword(req.body.password))) {
+  if (!user || !(await user.checkPassword(req.body.password))) {
     return res.status(401).render('pages/login', { error: 'Wrong username or password.' });
   }
   req.session.user = user;
@@ -81,4 +81,5 @@ router.post('/comments', async (req, res) => {
 });
 
 module.exports = router;
+
 
