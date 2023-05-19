@@ -1,7 +1,7 @@
 const { User, Post, Comment } = require('../models');
 const express = require('express');
 const router = express.Router();
-const getPosts = require('./getPosts');
+const getPosts = require('../controllers/getPosts');
 
 router.get('/', async (req, res) => {
   const posts = await getPosts(req);
@@ -81,3 +81,4 @@ router.post('/comments', async (req, res) => {
 });
 
 module.exports = router;
+
