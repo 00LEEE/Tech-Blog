@@ -1,7 +1,7 @@
 const { User, Post, Comment } = require('../models');
 const express = require('express');
 const router = express.Router();
-const getPosts = require('../controllers/getPosts');
+const getPosts = require('./getPosts');
 
 router.get('/', async (req, res) => {
   const posts = await getPosts(req);
